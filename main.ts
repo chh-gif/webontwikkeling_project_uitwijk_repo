@@ -9,8 +9,6 @@ async function Data() {
         //const resp2 = await fetch('git@github.com:AP-G-1PRO-Webontwikkeling/project-webontwikkeling-2025-chh-gif.git/waterfall_object.json');
        // return await resp1.json();
          waterfallObject = await resp1.json() as Waterfall[];
-        //console.log(waterfall[0].name);
-         // console.log(waterfallObject[0].name);
     } catch (error: any) {
         console.log(error);
     }
