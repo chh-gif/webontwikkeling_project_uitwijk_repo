@@ -2,26 +2,24 @@ import { Waterfall } from "./interface";
 import * as readline from "readline-sync";
 
 let waterfallObject: Waterfall[] = [];
-async function Data() {
+async function data() {
   try {
     const resp1 = await fetch(
       "https://raw.githubusercontent.com/chh-gif/Webontwikkeling-Assets_JSON_Rep/main/json/waterval.json",
     );
-    //const resp2 = await fetch('git@github.com:AP-G-1PRO-Webontwikkeling/project-webontwikkeling-2025-chh-gif.git/waterfall_object.json');
-    // return await resp1.json();
+
     waterfallObject = (await resp1.json()) as Waterfall[];
   } catch (error: any) {
     console.log(error);
   }
 }
-//const data: Waterfall = Data();
-//console.log(data.climate);
+
 
 let choice = "";
 let IDExist = false;
 
 async function main() {
-  await Data();
+  await data();
   do {
     console.log("Welcome to the JSON data viewer");
     console.log("1. View all data");
@@ -53,22 +51,26 @@ function ViewAllData() {
 
 function FilterById(id: string) {
   waterfallObject.forEach((element) => {
-    if (element.waterfallId == id) {
-      console.log(`- ${element.name} (${element.waterfallId})`);
-      console.log(`  -${element.country}`);
-      console.log(`  -${element.description}`);
-      console.log(`  -${element.heightInM}`);
-      console.log(`  -${element.yearRoundWaterFlow}`);
-      console.log(`  -${element.dateOfFirstDocumentary}`);
-      console.log(`  -${element.imageURL}`);
-      console.log(`  -${element.imageSource}`);
-      console.log(`  -${element.type}`);
-      console.log(`  -${element.climate.climateId}`);
-      console.log(`  -${element.climate.name}`);
-      console.log(`  -${element.climate.annualAvgTemperatureCelsius}`);
-      console.log(`  -${element.climate.environment}`);
+    if (element.waterfallId === id) {
+      console.log(` Name (ID): ${element.name} (${element.waterfallId})`);
+      console.log(` Country: ${element.country}`);
+      console.log(` Description:  ${element.description}`);
+      console.log(` Height (in m): ${element.heightInM}`);
+      console.log(` Year-round waterflow: ${element.yearRoundWaterFlow}`);
       console.log(
-        `  -Freeze possible: ${element.climate.freezePossible ? "yes" : "no"}`,
+        ` Date of first documentary: ${element.dateOfFirstDocumentary}`,
+      );
+      console.log(` Image-URL: ${element.imageURL}`);
+      console.log(` Image-source: ${element.imageSource}`);
+      console.log(` Type of waterfall: ${element.type}`);
+      console.log(` Climate-ID: ${element.climate.climateId}`);
+      console.log(` Name: ${element.climate.name}`);
+      console.log(
+        ` Annual average temperature (in °C): ${element.climate.annualAvgTemperatureCelsius}`,
+      );
+      console.log(` Environment ${element.climate.environment}`);
+      console.log(
+        ` Is freeze possible?:  ${element.climate.freezePossible ? "yes" : "no"}`,
       );
 
       IDExist = true;
