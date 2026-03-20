@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title><%= title %></title>
+</head>
+<body>
+    <form>
+        <input>
+    </form>
+
+    <table>
+        <thead>
+                    <tr>  
+                    <td span="2"> Name </td>
+                     <td> Country </td>
+                     <td> Height in meter </td>
+                     <td> Year round water flow </td>
+                     <td> Date of first documentary </td>
+                      <td> waterfall-type </td>
+                </tr>
+        </thead>
+        <tbody>
+            <% waterfallObject.forEach(element => { %>
+                    <tr>  
+                    <td> <%= element.imageURL %> </td>
+                     <td> <%= element.name %> </td>
+                     <td> <%= element.country %> </td>
+                     <td> <%= element.heightInM %> </td>
+                    <% if(element.yearRoundWaterFlow == true){%>
+                     <td> <div style="width: 20px;
+    height: 20px;
+    background-color: blue;
+    border-radius: 50%;
+    margin: auto;
+"> </td>
+<%} %>
+<% else { %>
+      <td> <div style="width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    margin: auto;
+"> </td>
+<% }%>
+                     <td> <%= element.dateOfFirstDocumentary %> </td>
+                      <td> <%= element.type %> </td>
+                </tr>
+                <%}) %>
+        </tbody>
+    </table>
+</body>
+</html>

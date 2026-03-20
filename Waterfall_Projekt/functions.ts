@@ -1,4 +1,4 @@
-import { Waterfall } from "../interface";
+import { Waterfall } from "./interface";
 import * as readline from "readline-sync";
 
 export async function data(waterfallObject: Waterfall[]) {
@@ -10,7 +10,7 @@ export async function data(waterfallObject: Waterfall[]) {
     const data = (await resp1.json()) as Waterfall[];
 
     waterfallObject.length = 0;
-    waterfallObject.push(...data);
+    waterfallObject.push(...data); 
   } catch (error: any) {
     console.log(error);
   }
