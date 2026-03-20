@@ -1,55 +1,29 @@
-import { Waterfall } from "./interface";
+import { Waterfall } from "../interface";
 import * as readline from "readline-sync";
 
-let waterfallObject: Waterfall[] = [];
-async function data() {
+export async function data(waterfallObject: Waterfall[]) {
   try {
     const resp1 = await fetch(
       "https://raw.githubusercontent.com/chh-gif/Webontwikkeling-Assets_JSON_Rep/main/json/waterval.json",
     );
 
-    waterfallObject = (await resp1.json()) as Waterfall[];
+    const data = (await resp1.json()) as Waterfall[];
+
+    waterfallObject.length = 0;
+    waterfallObject.push(...data);
   } catch (error: any) {
     console.log(error);
   }
 }
 
-
-let choice = "";
-let IDExist = false;
-
-async function main() {
-  await data();
-  do {
-    console.log("Welcome to the JSON data viewer");
-    console.log("1. View all data");
-    console.log("2. Filter by ID");
-    console.log("3. Exit");
-    choice = readline.question("Please enter your choice:");
-
-    switch (choice) {
-      case "1":
-        ViewAllData();
-        break;
-      case "2":
-        let IDchoice = readline.question(
-          "Please enter the ID you want to filter by:",
-        );
-        FilterById(IDchoice);
-        break;
-      case "3":
-        break;
-    }
-  } while (choice != "3");
-}
-
-function ViewAllData() {
+export function ViewAllData(waterfallObject: Waterfall[]) {
   waterfallObject.forEach((element) => {
     console.log(`- ${element.name} (${element.waterfallId})`);
   });
 }
 
-function FilterById(id: string) {
+export function FilterById(id: string, waterfallObject: Waterfall[]) {
+  let IDExist = false;
   waterfallObject.forEach((element) => {
     if (element.waterfallId === id) {
       console.log(` Name (ID): ${element.name} (${element.waterfallId})`);
@@ -82,5 +56,3 @@ function FilterById(id: string) {
   }
   IDExist = false;
 }
-
-main();
