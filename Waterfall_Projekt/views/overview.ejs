@@ -7,8 +7,10 @@
     <title><%= title %></title>
 </head>
 <body>
-    <form>
-        <input>
+    <form  action="/overview" method="GET">
+        <select name="overview" id="">Filter</select>
+            <option value="Name">Name</option>
+        <button type="submit">Submit</button>
     </form>
 
     <table>

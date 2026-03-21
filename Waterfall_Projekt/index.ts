@@ -49,7 +49,13 @@ export async function main() {
 main();
 
 app.get("/overview", (req, res) => {
+  
     res.render("overview", {waterfallObject})
+});
+
+app.post("/overview", (res, req)=>{
+const search = typeof res.body.overview == "string"? res.body.overview: "";
+
 });
 
 app.listen(app.get("port"), () => {
