@@ -1,34 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <title><%= title %></title>
-</head>
-<body>
+<%- include("partials/header") %>
+
     <form  action="/overview" method="GET">
-        <select name="overview" id="">Filter</select>
-            <option value="Name">Name</option>
-        <button type="submit">Submit</button>
+        <label for="search">Search</label>
+        <input type="text" name="search"> 
+
+        <select name="sort" id="">
+            <option value="name">Name</option>
+            <option value="country">Country</option>
+            <option value="height">Height </option>
+            <option value="date">Date of first documentary </option>
+            <option value="flow">Year-round water flow </option>
+            <option value="type">Waterfall type </option>
+        </select>
+        <select name="direction" id="">
+            <option value="asc">ascending</option>
+            <option value="desc">descending</option>
+        </select>
+
+         <button type="submit">Submit</button>
     </form>
 
     <table>
         <thead>
                     <tr>  
-                    <td span="2"> Name </td>
-                     <td> Country </td>
-                     <td> Height in meter </td>
-                     <td> Year round water flow </td>
-                     <td> Date of first documentary </td>
-                      <td> waterfall-type </td>
+                    <th colspan="2"> Name </th>
+                     <th>Country </th>
+                     <th> Height in meter </th>
+                     <th>Year-round water flow </th>
+                     <th> Date of first documentary </th>
+                      <th> waterfall type </th>
                 </tr>
         </thead>
         <tbody>
             <% waterfallObject.forEach(element => { %>
                     <tr>  
-                    <td> <%= element.imageURL %> </td>
-                     <td> <%= element.name %> </td>
+                    <td><img src="<%= element.imageURL%>" width="120">  </td>
+                     <td><a href="detailpage/<%= element.waterfallId %>"><%= element.name %> </a> </td>
                      <td> <%= element.country %> </td>
                      <td> <%= element.heightInM %> </td>
                     <% if(element.yearRoundWaterFlow == true){%>
@@ -38,8 +45,7 @@
     border-radius: 50%;
     margin: auto;
 "> </td>
-<%} %>
-<% else { %>
+<%} else { %>
       <td> <div style="width: 20px;
     height: 20px;
     background-color: red;

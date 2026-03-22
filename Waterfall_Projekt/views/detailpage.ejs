@@ -1,0 +1,74 @@
+<%- include("partials/header") %>
+
+
+   <a href="/overview">⟵  back to the overview</a>
+
+    <table>
+        <tr>
+<td > <%=Waterfall ID %></td>
+ <td> <%= element.waterfallId %> </td>
+        </tr>
+        <tr>
+<td > <%=Image%> </td>
+ <td> <%= element.imageURL %> </td>
+        </tr>
+          <tr>
+<td ><%= Name %></td>
+ <td> <%= element.name %> </td>
+        </tr>
+         <tr>
+<td ><%= Country%> </td>
+ <td> <%= element.country %> </td>
+        </tr>
+                 <tr>
+<td > <%=Description %></td>
+ <td> <%= element.description %> </td>
+        </tr>
+        <tr>
+<td > <%=Height in meter%> </td>
+ <td> <%= element.heightInM %> </td>
+        </tr>
+    <tr>
+<td > <%=Yearround water flow%></td>
+ <% if(element.yearRoundWaterFlow == true){%>
+                     <td> <div style="width: 20px;
+    height: 20px;
+    background-color: blue;
+    border-radius: 50%;
+    margin: auto;
+"> </td>
+<% } %>
+<% else { %>
+      <td> <div style="width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    margin: auto;"> </td>
+<% }%>
+        </tr>
+    <tr>
+<td ><%=Date of first documentary%></td>
+ <td> <%= element.dateOfFirstDocumentary %> </td>
+        </tr>
+    <tr>
+<td ><%= Type of waterfall %></td>
+
+ <td> <%= element.type %> </td>
+        </tr>
+        <tr>
+<td> <%=Source of the Image%> </td>
+ <td> <%= element.imageSource %> </td>
+        </tr>
+           <tr>
+<td > <%=Climate%> </td>
+ <td> <p><%= element.climate.climateId %> </p>
+     <p><%= element.climate.name %> </p>
+      <p><%= element.climate.annualAvgTemperatureCelsius %> </p>
+       <p><%= element.climate.environment %> </p>
+        <p><%= element.climate.freezePossible %> </p>
+</td>
+        </tr>
+   
+    </table>
+</body>
+</html>

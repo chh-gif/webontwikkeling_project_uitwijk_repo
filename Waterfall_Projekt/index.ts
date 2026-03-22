@@ -52,9 +52,41 @@ app.get("/overview", (req, res) => {
   
     res.render("overview", {waterfallObject})
 });
+app.get("/detailpage/:id", (req, res) => {
+  const id = req.params.id;
+  const element = waterfallObject.find(value => value.waterfallId === id);
+    res.render("detailpage", {element})
+});
 
-app.post("/overview", (res, req)=>{
-const search = typeof res.body.overview == "string"? res.body.overview: "";
+app.post("/overview", (req, res)=>{
+const search = typeof req.body.search == "string"? req.body.search: "";
+const result = waterfallObject.filter(value=> value.waterfallId.includes(search));
+
+const sort = req.body.sort;
+const direction = req.body.direction;
+
+
+switch(sort){
+  case "name":
+     result.sort((a,b)=> direction == "asc"? a.name.localeCompare(b.name):b.name.localeCompare(a.name));
+  break;
+     case "country":
+    result.sort((a,b)=> direction =="asc"? a.country.localeCompare(b.country):b.country.localeCompare(a.country));
+    break;
+  case "height": 
+  result.sort((a,b)=>direction == "asc"? a.heightInM-b.heightInM:b.heightInM-a.heightInM);
+  break;
+  case "date": 
+  result.sort((a,b)=> direction == "asc"? new Date(a.dateOfFirstDocumentary).getTime()- new Date(b.dateOfFirstDocumentary).getTime(): new Date (b.dateOfFirstDocumentary).getTime()- new Date (a.dateOfFirstDocumentary).getTime());
+    break;
+  case "flow":
+    result.sort((a,b)=>direction == "asc"? Number(a.yearRoundWaterFlow)-Number(b.yearRoundWaterFlow):Number(b.yearRoundWaterFlow)-Number(a.yearRoundWaterFlow));
+   break;
+    case "type":
+result.sort((a,b)=> direction == "asc"? a.type.localeCompare(b.type):b.type.localeCompare(a.type));
+break;
+}
+res.render("overview", {waterfallObject: result})
 
 });
 
