@@ -46,7 +46,11 @@ export async function main() {
   } while (choice != "3");
 }
 
-main();
+//main();
+
+app.get("/", (req, res) =>{
+res.render("index", {waterfallObject})
+});
 
 app.get("/overview", (req, res) => {
   
@@ -60,7 +64,12 @@ app.get("/detailpage/:id", (req, res) => {
 
 app.post("/overview", (req, res)=>{
 const search = typeof req.body.search == "string"? req.body.search: "";
-const result = waterfallObject.filter(value=> value.waterfallId.includes(search));
+const result = waterfallObject.filter(value=> 
+  value.waterfallId.toLowerCase().includes(search.toLowerCase()) ||
+value.country.toLowerCase().includes(search.toLowerCase()) ||
+value.name.toLowerCase().includes(search.toLowerCase()) ||
+value.type.toLowerCase().includes(search.toLowerCase())
+);
 
 const sort = req.body.sort;
 const direction = req.body.direction;
@@ -90,6 +99,13 @@ res.render("overview", {waterfallObject: result})
 
 });
 
-app.listen(app.get("port"), () => {
-    console.log("Server started on http://localhost:" + app.get('port'));
-});
+
+(async () => {
+  await data(waterfallObject);
+
+  app.listen(app.get("port"), () => {
+    console.log("Server started on http://localhost:" + app.get("port"));
+  });
+})();
+
+

@@ -1,6 +1,6 @@
 <%- include("partials/header") %>
 
-    <form  action="/overview" method="GET">
+    <form  action="/overview" method="POST">
         <label for="search">Search</label>
         <input type="text" name="search"> 
 
@@ -28,7 +28,7 @@
                      <th> Height in meter </th>
                      <th>Year-round water flow </th>
                      <th> Date of first documentary </th>
-                      <th> waterfall type </th>
+                      <th> Waterfall type </th>
                 </tr>
         </thead>
         <tbody>
@@ -39,16 +39,16 @@
                      <td> <%= element.country %> </td>
                      <td> <%= element.heightInM %> </td>
                     <% if(element.yearRoundWaterFlow == true){%>
-                     <td> <div style="width: 20px;
+                     <td> <div title="Year-round water flow"; style="width: 20px;
     height: 20px;
-    background-color: blue;
+    background-color: #4F7F4F;
     border-radius: 50%;
     margin: auto;
 "> </td>
 <%} else { %>
-      <td> <div style="width: 20px;
+      <td> <div  title="No year-round water flow"; style="width: 20px;
     height: 20px;
-    background-color: red;
+    background-color: #C17F59;
     border-radius: 50%;
     margin: auto;
 "> </td>

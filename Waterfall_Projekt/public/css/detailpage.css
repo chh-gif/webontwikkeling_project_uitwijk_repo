@@ -1,0 +1,26 @@
+
+table {
+    max-width: 800px;
+   
+    background: #ffffff;
+    
+    margin-top: 10px;
+}
+
+
+
+
+
+td:first-child {
+    width: 220px;
+    font-weight: bold;
+    color: #2f4f2f;
+    background: #f7faf6;
+}
+
+
+
+
+
+
+
