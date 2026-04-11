@@ -60,8 +60,8 @@
         </tr>
            <tr>
 <td > Climate </td>
- <td> <p>- <%= element.climate.climateId %> - <%= element.climate.name %> </p>
-      <p>- Ø annual temperature <%= element.climate.annualAvgTemperatureCelsius %>°C</p>
+ <td> <p style="text-decoration: underline;"> <%= element.climate.climateId %> - <%= element.climate.name %> </p>
+      <p>- Ø annual temperature: <%= element.climate.annualAvgTemperatureCelsius %>°C</p>
        <p>- <%= element.climate.environment %> </p>
     <% if (element.climate.freezePossible) { %>
         <p title= "Freeze is possible">- ❄️ - Freeze is possible</p>
