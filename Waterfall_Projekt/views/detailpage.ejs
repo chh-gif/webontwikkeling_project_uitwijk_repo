@@ -3,14 +3,14 @@
 
    <a href="/overview">⟵  back to the overview</a>
 
-    <table>
+    <table class="table-detail">
         <tr>
 <td > Waterfall ID </td>
  <td> <%= element.waterfallId %> </td>
         </tr>
         <tr>
 <td > Image </td>
- <td> <%= element.imageURL %> </td>
+ <td style="text-align: center;"><img src="<%= element.imageURL%>">  </td>
         </tr>
           <tr>
 <td > Name </td>
@@ -60,15 +60,13 @@
         </tr>
            <tr>
 <td > Climate </td>
- <td> <p><%= element.climate.climateId %> </p>
-     <p><%= element.climate.name %> </p>
-      <p><%= element.climate.annualAvgTemperatureCelsius %> </p>
-       <p><%= element.climate.environment %> </p>
-       
+ <td> <p>- <%= element.climate.climateId %> - <%= element.climate.name %> </p>
+      <p>- Ø annual temperature <%= element.climate.annualAvgTemperatureCelsius %>°C</p>
+       <p>- <%= element.climate.environment %> </p>
     <% if (element.climate.freezePossible) { %>
-        <p title= "Freeze is possible">❄️ </p>
+        <p title= "Freeze is possible">- ❄️ - Freeze is possible</p>
     <% } else { %>
-         <p title= "No freeze expected">🌿 </p>
+         <p title= "No freeze expected">- 🌿 - No freeze expected</p>
     <% } %>
 </td>
 
