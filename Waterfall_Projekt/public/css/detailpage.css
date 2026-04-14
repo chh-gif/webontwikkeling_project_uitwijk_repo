@@ -1,4 +1,11 @@
-
+:root {
+  --color-shadow: black;
+  --color-main: #6b8f71;
+  --color-background1:  #b8c7b0;
+   --color-background2: #f9faf8;
+   --color-background3: white;
+  --color-frame: #2f4f2f;
+}
 .table-detail {
     max-width: 800px;
     margin-top: 20px;
@@ -8,13 +15,55 @@
 td:first-child {
     width: 220px;
     font-weight: bold;
-    color: #2f4f2f;
-    background: #f7faf6;
+    color: var(--color-frame);
+    background: var(--color-background2);
 }
 
+@media (max-width: 500px) {
 
+  /* 
+    Jede Tabelle (table-detail) wird auf Mobile zu einer eigenen Karte.
+    Das betrifft sowohl die große Tabelle oben als auch die vielen kleinen unten.
+  */
+  .table-detail {
+    width: 100%;
+    display: block;              /* Tabelle wird wie ein Block-Element behandelt */
+    margin-bottom: 20px;         /* Abstand zwischen den Karten */
+    padding: 12px;               /* Innenabstand für Karten-Optik */
+    border: 1px solid var(--color-background1);
+    border-radius: 8px;          /* abgerundete Ecken */
+    background: var(--color-background3);
+  }
 
+  /*
+    Jede Tabellenzeile wird ein Block.
+    Bei den unteren Tabellen gibt es nur 1 Zeile – das ist perfekt.
+  */
+  .table-detail tr {
+    display: block;
+    margin-bottom: 10px;
+  }
 
+  /*
+    Jede Tabellenzelle wird ein Block.
+    Dadurch stehen Label und Wert untereinander.
+  */
+  .table-detail td {
+    display: block;
+    width: 100%;
+    white-space: normal;         /* Texte dürfen umbrechen */
+  }
 
-
+  /*
+    Die erste Zelle ist das Label.
+    Sie bekommt eine optische Hervorhebung.
+  */
+  .table-detail td:first-child {
+    font-weight: bold;
+    background: var(--color-background2);
+    padding: 6px 4px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+  }
+}
 

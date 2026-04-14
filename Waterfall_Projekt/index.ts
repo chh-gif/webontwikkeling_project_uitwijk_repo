@@ -1,8 +1,8 @@
 import express, { Express } from "express";
 import path from "path";
-import { Waterfall } from "./interface";
+import { IntClimate, Waterfall } from "./interface";
 import * as readline from "readline-sync";
-import {data} from "./functions";
+import {data, data2} from "./functions";
 import {ViewAllData} from "./functions";
 import {FilterById} from "./functions";
   
@@ -16,6 +16,7 @@ app.set('views', path.join(__dirname, "views"));
 app.set("port", process.env.PORT || 3000);
 
 let waterfallObject: Waterfall[] = [];
+let climateObject: IntClimate[] = [];
 
 
 let choice = "";
@@ -23,6 +24,7 @@ let choice = "";
 
 export async function main() {
   await data(waterfallObject);
+  await data2(climateObject);
   do {
     console.log("Welcome to the JSON data viewer");
     console.log("1. View all data");
@@ -59,7 +61,17 @@ app.get("/overview", (req, res) => {
 app.get("/detailpage/:id", (req, res) => {
   const id = req.params.id;
   const element = waterfallObject.find(value => value.waterfallId === id);
-    res.render("detailpage", {element})
+    res.render("detailpage", {element, waterfallObject})
+});
+
+app.get("/climatepage/:id", (req, res) => {
+  const id = req.params.id;
+  const element = waterfallObject.find(value => value.climate.climateId === id);
+    res.render("climatepage", {element, waterfallObject})
+});
+
+app.get("/climate", (req, res) => {
+    res.render("climate", {climateObject})
 });
 
 app.post("/overview", (req, res)=>{
@@ -102,6 +114,7 @@ res.render("overview", {waterfallObject: result})
 
 (async () => {
   await data(waterfallObject);
+  await data2(climateObject);
 
   app.listen(app.get("port"), () => {
     console.log("Server started on http://localhost:" + app.get("port"));

@@ -1,4 +1,7 @@
 <%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<div class="body">
 
     <form  action="/overview" method="POST">
         <label for="search">Search</label>
@@ -34,7 +37,7 @@
         <tbody>
             <% waterfallObject.forEach(element => { %>
                     <tr>  
-                    <td><img src="<%= element.imageURL%>" width="120">  </td>
+                    <td><a href="detailpage/<%= element.waterfallId %>"><img src="<%= element.imageURL%>" width="120"> </a> </td>
                      <td><a href="detailpage/<%= element.waterfallId %>"><%= element.name %> </a> </td>
                      <td> <%= element.country %> </td>
                      <td> <%= element.heightInM %> </td>
@@ -59,5 +62,5 @@
                 <%}) %>
         </tbody>
     </table>
-</body>
-</html>
+    </div>
+<%- include("partials/footer") %>

@@ -1,0 +1,56 @@
+<%- include("partials/header") %>
+
+<%- include("partials/nav") %>
+
+<div class="body">
+   <a href="/climate">⟵  back to the climates</a>
+
+    <table class="table-detail">
+        <tr>
+<td > Climate ID </td>
+ <td> <%= element.climate.climateId %> </td>
+        </tr>
+        <tr>
+<td > Image </td>
+ <td style="text-align: center;"><img src="<%= element.climate.image%>">  </td>
+        </tr>
+          <tr>
+<td > Name </td>
+ <td> <%= element.climate.name %> </td>
+        </tr>
+         <tr>
+<td >Ø annual temperature</td>
+ <td> <%= element.climate.annualAvgTemperatureCelsius %> </td>
+        </tr>
+                 <tr>
+<td > Environment </td>
+ <td> <%= element.climate.environment %> </td>
+        </tr>
+        <tr>
+<td> Freeze possible </td>
+ <td> <% if (element.climate.freezePossible) { %>
+        <p title= "Freeze is possible"> ❄️ - Freeze is possible</p>
+    <% } else { %>
+         <p title= "No freeze expected"> 🌿 - No freeze expected</p>
+    <% } %> </td>
+    </tr>
+    </table>
+            <h2> Waterfalls located in <%= element.climate.name%> Zone</h2>
+ 
+     <% waterfallObject.forEach(ele => { %>
+        <%if(ele.climate.climateId == element.climate.climateId ) { %>
+        <table class="table-detail">
+                  <tr>
+                    <td>
+Name 
+                </td>
+                <td>
+<a href="/detailpage/<%=ele.waterfallId%>"><%=ele.waterfallId%> - <%=ele.name%></a>
+                </td>
+                </tr>
+                </table>
+  <%}}) %>
+
+    
+    </div>
+    <%- include("partials/footer") %>

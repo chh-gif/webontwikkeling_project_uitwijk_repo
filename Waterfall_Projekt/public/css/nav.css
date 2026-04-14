@@ -1,0 +1,78 @@
+:root {
+  --color-shadow: black;
+  --color-main: #6b8f71;
+  --color-background1:  #b8c7b0;
+   --color-background2: #f9faf8;
+   --color-background3: white;
+  --color-frame: #2f4f2f;
+}
+
+
+nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 220px;
+  height: 100vh;
+  background:  var(--color-main); 
+  padding-top: 30px;
+  box-shadow: 3px 0 8px var(--color-shadow);
+}
+
+
+nav ul {
+  list-style: none; /*kein Aufzählungszeichen*/
+  padding: 0;
+  margin: 0;
+}
+
+
+nav li {
+  margin: 15px 0;
+}
+
+
+nav a {
+  display: block;
+  padding: 12px 20px;
+  color: var(--color-background3);
+  font-size: 1rem;
+  border-left: 4px solid transparent;
+}
+
+
+nav a:hover {
+  background:  var(--color-main);
+}
+
+
+@media (max-width: 500px) {
+
+  
+  nav {
+    position: relative; /* klebt oben*/
+    width: 100%;
+    height: auto;
+    padding: 10px 0;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+    nav li {
+    margin: 0; /* margin ist nun im gap*/
+  }
+
+   nav a {
+    border-left: none; /* weil nav nicht mehr links klebt*/
+    border-radius: 6px;
+  }
+}

@@ -16,6 +16,7 @@ export interface Waterfall {
     export interface IntClimate{
     climateId: string;
       name: string;
+      imnage: string;
       annualAvgTemperatureCelsius: number;
       environment: string;
       freezePossible: boolean

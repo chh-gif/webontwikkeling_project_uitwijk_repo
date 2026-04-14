@@ -1,6 +1,8 @@
 <%- include("partials/header") %>
 
+<%- include("partials/nav") %>
 
+<div class="body">
    <a href="/overview">⟵  back to the overview</a>
 
     <table class="table-detail">
@@ -69,11 +71,26 @@
          <p title= "No freeze expected">- 🌿 - No freeze expected</p>
     <% } %>
 </td>
-
-</td>
         </tr>
    
     </table>
+    <h2> Waterfalls also located in <%= element.climate.name%> Zone</h2>
+ 
+     <% waterfallObject.forEach(ele => { %>
+        <%if(ele.climate.climateId == element.climate.climateId ) { %>
+        <table class="table-detail">
+                  <tr>
+                    <td>
+Name 
+                </td>
+                <td>
+<a href="/detailpage/<%=ele.waterfallId%>"><%=ele.waterfallId%> - <%=ele.name%></a>
+                </td>
+                </tr> 
+             </table>
+  <%}}) %>
 
-    
+  
+
+    </div>
     <%- include("partials/footer") %>

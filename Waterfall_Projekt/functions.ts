@@ -1,4 +1,4 @@
-import { Waterfall } from "./interface";
+import { IntClimate, Waterfall } from "./interface";
 import * as readline from "readline-sync";
 
 export async function data(waterfallObject: Waterfall[]) {
@@ -11,6 +11,23 @@ export async function data(waterfallObject: Waterfall[]) {
 
     waterfallObject.length = 0;
     waterfallObject.push(...data); 
+  } catch (error: any) {
+    console.log(error);
+  }
+}
+
+
+
+export async function data2(climateObject: IntClimate[]) {
+  try {
+    const resp1 = await fetch(
+      "https://raw.githubusercontent.com/chh-gif/Webontwikkeling-Assets_JSON_Rep/main/json/waterval_object.json",
+    );
+
+    const data = (await resp1.json()) as IntClimate[];
+
+    climateObject.length = 0;
+    climateObject.push(...data); 
   } catch (error: any) {
     console.log(error);
   }
