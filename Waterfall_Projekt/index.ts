@@ -5,6 +5,7 @@ import * as readline from "readline-sync";
 import {data, data2} from "./functions";
 import {ViewAllData} from "./functions";
 import {FilterById} from "./functions";
+import {MongoClient} from "mongodb";
   
 const app : Express = express();
 
@@ -17,7 +18,7 @@ app.set("port", process.env.PORT || 3000);
 
 let waterfallObject: Waterfall[] = [];
 let climateObject: IntClimate[] = [];
-
+let db: any;
 
 let choice = "";
 
@@ -50,33 +51,75 @@ export async function main() {
 
 //main();
 
-app.get("/", (req, res) =>{
-res.render("index", {waterfallObject})
+
+(async () => {
+  try{
+        
+  // Daten aus Funktionen holen
+  await data(waterfallObject);
+  await data2(climateObject);
+
+//MongoDB verbinden
+const url = "mongodb+srv://CHH:deweUTuxX4t7UngG@2webontwikkeling.cxz0skq.mongodb.net/";
+const client = new MongoClient(url);
+await client.connect();
+db = client.db("waterfallDB");
+
+ const find = await db.collection("waterfalls").findOne({});
+        if (!find){
+//DB leeren
+
+await db.collection("waterfalls").deleteMany({});
+await db.collection("climate").deleteMany({});
+
+//DB füllen
+
+await db.collection("waterfalls").insertMany(waterfallObject);
+await db.collection("climate").insertMany(climateObject);
+        }}
+        catch (err) {
+    console.error(err);
+  }
+
+  app.listen(app.get("port"), () => {
+    console.log("Server started on http://localhost:" + app.get("port"));
+  });
+})();
+
+
+
+app.get("/", async (req, res) =>{
+  const waterfalls = await db.collection("waterfalls").find().toArray();
+res.render("index", {waterfallObject: waterfalls})
 });
 
-app.get("/overview", (req, res) => {
-  
-    res.render("overview", {waterfallObject})
+app.get("/overview", async (req, res) => {
+  const waterfalls = await db.collection("waterfalls").find().toArray();
+    res.render("overview", {waterfallObject: waterfalls})
 });
-app.get("/detailpage/:id", (req, res) => {
+app.get("/detailpage/:id", async (req, res) => {
   const id = req.params.id;
-  const element = waterfallObject.find(value => value.waterfallId === id);
-    res.render("detailpage", {element, waterfallObject})
+  const waterfalls = await db.collection("waterfalls").find().toArray();
+  const element = waterfalls.find((value: Waterfall) => value.waterfallId === id);
+    res.render("detailpage", {element, waterfallObject: waterfalls})
 });
 
-app.get("/climatepage/:id", (req, res) => {
+app.get("/climatepage/:id", async(req, res) => {
   const id = req.params.id;
-  const element = waterfallObject.find(value => value.climate.climateId === id);
-    res.render("climatepage", {element, waterfallObject})
+ const waterfalls = await db.collection("waterfalls").find().toArray();
+  const element = waterfalls.find((value: Waterfall) => value.climate.climateId === id);
+    res.render("climatepage", {element, waterfallObject: waterfalls})
 });
 
-app.get("/climate", (req, res) => {
-    res.render("climate", {climateObject})
+app.get("/climate", async(req, res) => {
+  const climate = await db.collection("climate").find().toArray();
+    res.render("climate", {climateObject: climate})
 });
 
-app.post("/overview", (req, res)=>{
+app.post("/overview", async(req, res)=>{
 const search = typeof req.body.search == "string"? req.body.search: "";
-const result = waterfallObject.filter(value=> 
+const waterfalls = await db.collection("waterfalls").find().toArray();
+const result = waterfalls.filter((value: Waterfall)=> 
   value.waterfallId.toLowerCase().includes(search.toLowerCase()) ||
 value.country.toLowerCase().includes(search.toLowerCase()) ||
 value.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -89,36 +132,24 @@ const direction = req.body.direction;
 
 switch(sort){
   case "name":
-     result.sort((a,b)=> direction == "asc"? a.name.localeCompare(b.name):b.name.localeCompare(a.name));
+     result.sort((a: Waterfall,b: Waterfall)=> direction == "asc"? a.name.localeCompare(b.name):b.name.localeCompare(a.name));
   break;
      case "country":
-    result.sort((a,b)=> direction =="asc"? a.country.localeCompare(b.country):b.country.localeCompare(a.country));
+    result.sort((a: Waterfall,b: Waterfall)=> direction =="asc"? a.country.localeCompare(b.country):b.country.localeCompare(a.country));
     break;
   case "height": 
-  result.sort((a,b)=>direction == "asc"? a.heightInM-b.heightInM:b.heightInM-a.heightInM);
+  result.sort((a: Waterfall,b: Waterfall)=>direction == "asc"? a.heightInM-b.heightInM:b.heightInM-a.heightInM);
   break;
   case "date": 
-  result.sort((a,b)=> direction == "asc"? new Date(a.dateOfFirstDocumentary).getTime()- new Date(b.dateOfFirstDocumentary).getTime(): new Date (b.dateOfFirstDocumentary).getTime()- new Date (a.dateOfFirstDocumentary).getTime());
+  result.sort((a: Waterfall,b: Waterfall)=> direction == "asc"? new Date(a.dateOfFirstDocumentary).getTime()- new Date(b.dateOfFirstDocumentary).getTime(): new Date (b.dateOfFirstDocumentary).getTime()- new Date (a.dateOfFirstDocumentary).getTime());
     break;
   case "flow":
-    result.sort((a,b)=>direction == "asc"? Number(a.yearRoundWaterFlow)-Number(b.yearRoundWaterFlow):Number(b.yearRoundWaterFlow)-Number(a.yearRoundWaterFlow));
+    result.sort((a: Waterfall,b: Waterfall)=>direction == "asc"? Number(a.yearRoundWaterFlow)-Number(b.yearRoundWaterFlow):Number(b.yearRoundWaterFlow)-Number(a.yearRoundWaterFlow));
    break;
     case "type":
-result.sort((a,b)=> direction == "asc"? a.type.localeCompare(b.type):b.type.localeCompare(a.type));
+result.sort((a: Waterfall,b: Waterfall)=> direction == "asc"? a.type.localeCompare(b.type):b.type.localeCompare(a.type));
 break;
 }
 res.render("overview", {waterfallObject: result})
 
 });
-
-
-(async () => {
-  await data(waterfallObject);
-  await data2(climateObject);
-
-  app.listen(app.get("port"), () => {
-    console.log("Server started on http://localhost:" + app.get("port"));
-  });
-})();
-
-
