@@ -66,7 +66,7 @@ await client.connect();
 db = client.db("waterfallDB");
 
  const find = await db.collection("waterfalls").findOne({});
-        if (!find){
+        if (find === null){
 //DB leeren
 
 await db.collection("waterfalls").deleteMany({});
@@ -151,5 +151,30 @@ result.sort((a: Waterfall,b: Waterfall)=> direction == "asc"? a.type.localeCompa
 break;
 }
 res.render("overview", {waterfallObject: result})
+});
 
+app.get("/editor/:id", async(req,res) => {
+const id = req.params.id;
+const waterfalls = await db.collection("waterfalls").find().toArray();
+const element = waterfalls.find((value: Waterfall) => value.waterfallId === id);
+res.render("editor", {element, waterfallObject: waterfalls});
+}
+);
+
+app.post("/editor/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await db.collection("waterfalls").updateOne(
+    { waterfallId: id },
+    {
+      $set: {
+        description: req.body.description,
+        yearRoundWaterFlow: req.body.yearRoundWaterFlow === "true"? true : false,
+        imageURL: req.body.imageURL,
+        imageSource: req.body.imageSource
+      }
+    }
+  );
+
+  res.redirect("/detailpage/" + id);
 });

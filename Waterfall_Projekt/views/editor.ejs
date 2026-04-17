@@ -1,0 +1,41 @@
+<%- include("partials/header") %>
+
+<%- include("partials/nav") %>
+
+<div class="body">
+   <a href="/detailpage/<%=element.waterfallId%>">⟵  back to waterfall <%=element.name %></a>
+
+<h1> Edit waterfall <%=element.name%></h1>
+
+<form action="/editor/<%=element.waterfallId%>" method="POST" class="editor">
+<div class="editor-form">
+   <label for="description">Description:</label>
+   <input type="text" id="description" name="description" value="<%=element.description%>" required>
+</div>
+
+   <div class="editor-form">
+        <label for="yearRoundWaterFlow">Year round water flow:</label>
+   <select type="text" id="yearRoundWaterFlow" name="yearRoundWaterFlow"  required>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+      </select>
+</div>
+
+      <div class="editor-form">
+       <label for="imageURL">URL of the image:</label>
+    <input 
+        type="text" id="imageURL" name="imageURL" value="<%= element.imageURL %>" required>
+</div>
+
+        <div class="editor-form">
+         <label for="imageSource">URL of the image:</label>
+    <input 
+        type="text" id="imageSource" name="imageSource" value="<%= element.imageSource %>" required>
+</div>
+
+        <button type="submit" > Save changes </button>
+</form>
+
+
+    </div>
+    <%- include("partials/footer") %>
