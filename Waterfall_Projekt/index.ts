@@ -76,17 +76,8 @@ await db.collection("climate").deleteMany({});
 
 await db.collection("waterfalls").insertMany(waterfallObject);
 await db.collection("climate").insertMany(climateObject);
-        }}
-        catch (err) {
-    console.error(err);
-  }
-
-  app.listen(app.get("port"), () => {
-    console.log("Server started on http://localhost:" + app.get("port"));
-  });
-})();
-
-
+        }
+      
 
 app.get("/", async (req, res) =>{
   const waterfalls = await db.collection("waterfalls").find().toArray();
@@ -178,3 +169,14 @@ app.post("/editor/:id", async (req, res) => {
 
   res.redirect("/detailpage/" + id);
 });
+
+      }
+        catch (err) {
+    console.error(err);
+  }
+
+  app.listen(app.get("port"), () => {
+    console.log("Server started on http://localhost:" + app.get("port"));
+  });
+})();
+

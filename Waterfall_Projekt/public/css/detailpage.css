@@ -38,7 +38,7 @@ td:first-child {
 
   /*
     Jede Tabellenzeile wird ein Block.
-    Bei den unteren Tabellen gibt es nur 1 Zeile – das ist perfekt.
+    Bei den unteren Tabellen gibt es nur 1 Zeile
   */
   .table-detail tr {
     display: block;

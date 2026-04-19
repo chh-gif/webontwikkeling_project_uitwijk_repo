@@ -22,3 +22,20 @@
 flex: 1;
 
 }
+
+@media (max-width: 600px) { /* hier 600px sonst rutscht width:200px über den Rand des Formulars*/
+
+.editor-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  
+}
+.editor-form select, .editor-form input{
+    width: 100%;
+}
+.editor-form label {
+    width:100%;
+}
+
+}
