@@ -70,3 +70,10 @@ export async function getAllWaterfalls() {
 export async function getWaterfallById(id: string) {
   return await waterfalls.findOne({ waterfallId: id});
 }
+
+export async function getAllClimates() {
+  return await climate.find({}).toArray();
+}
+export async function getClimatebyId(id: string) {
+  return await waterfalls.findOne({ climateId: id});
+}

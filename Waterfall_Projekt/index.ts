@@ -10,6 +10,8 @@ import {
   fetchfunction,
   getAllWaterfalls,
   getWaterfallById,
+  getAllClimates,
+  getClimatebyId
 } from "./database";
 import { waterfalls, climate } from "./database";
 
@@ -84,14 +86,12 @@ export async function main() {
     app.get("/climatepage/:id", async (req, res) => {
       const id = req.params.id;
       const waterfall = await getAllWaterfalls();
-      const element = await waterfalls.findOne(
-        (value: Waterfall) => value.climate.climateId === id,
-      );
+      const element = await getClimatebyId(id);
       res.render("climatepage", { element, waterfallObject: waterfall });
     });
 
     app.get("/climate", async (req, res) => {
-      const climateArray = await climate.find().toArray();
+      const climateArray = await getAllClimates();
       res.render("climate", { climateObject: climateArray });
     });
 
