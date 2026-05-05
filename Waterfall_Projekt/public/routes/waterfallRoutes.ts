@@ -3,9 +3,14 @@ import {
   getAllWaterfalls,
   getWaterfallById,
   waterfalls
-} from "../database";
+} from "../../database";
+import { IntClimate, Waterfall } from "../../interface";
 
 const router = Router();
+
+let waterfallObject: Waterfall[] = [];
+let climateObject: IntClimate[] = [];
+let db: any;
 
   router.get("/", async (req, res) => {
       const waterfall = await getAllWaterfalls();
@@ -26,7 +31,7 @@ const router = Router();
     });
 
     
-    app.post("/overview", async (req, res) => {
+    router.post("/overview", async (req, res) => {
       const search = typeof req.body.search == "string" ? req.body.search : "";
       const waterfall = await getAllWaterfalls();
       const result = waterfall.filter(
@@ -115,5 +120,7 @@ const router = Router();
 
       res.redirect("/detailpage/" + id);
     });
+
+     export default router;
 
 

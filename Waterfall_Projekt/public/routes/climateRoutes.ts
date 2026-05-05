@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { getAllClimates, getClimatebyId, getAllWaterfalls } from "../database";
+import { getAllClimates, getClimatebyId, getAllWaterfalls } from "../../database";
 
 const router = Router();
 

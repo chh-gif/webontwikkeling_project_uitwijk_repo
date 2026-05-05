@@ -1,7 +1,6 @@
 import express, { Express } from "express";
 import path from "path";
 import { IntClimate, Waterfall } from "./interface";
-import * as readline from "readline-sync";
 import { ViewAllData } from "./functions";
 import { FilterById } from "./functions";
 import {
@@ -14,8 +13,8 @@ import {
   getClimatebyId
 } from "./database";
 import { waterfalls, climate } from "./database";
-import waterfallRoutes from "./routes/waterfallRoutes";
-import climateRoutes from "./routes/climateRoutes";
+import waterfallRoutes from "./public/routes/waterfallRoutes";
+import climateRoutes from "./public/routes/climateRoutes";
 
 const app: Express = express();
 
@@ -26,15 +25,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("port", process.env.PORT || 3000);
 
-let waterfallObject: Waterfall[] = [];
-let climateObject: IntClimate[] = [];
-let db: any;
-
-
-
 
 (async () => {
-  try {
+  
+   app.listen(app.get("port"), async () => {
+
+try {
     //MongoDB verbinden
     connect();
     // Daten aus Funktionen holen
@@ -49,7 +45,6 @@ let db: any;
     console.error(err);
   }
 
-   app.listen(app.get("port"), async () => {
     console.log("Server started on http://localhost:" + app.get("port"));
   });
 })();
