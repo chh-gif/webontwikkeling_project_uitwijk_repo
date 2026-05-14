@@ -1,3 +1,6 @@
+console.log("🚀 index.ts wurde gestartet");
+
+
 import express, { Express } from "express";
 import path from "path";
 import { connect, fetchfunction } from "./database";

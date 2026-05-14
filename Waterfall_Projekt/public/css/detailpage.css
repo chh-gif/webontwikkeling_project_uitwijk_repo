@@ -16,6 +16,11 @@ td:first-child {
     background: var(--color-background2);
 }
 
+.table-detail:last-of-type {
+    margin-bottom: 40px; 
+}
+
+
 
 
 

@@ -65,6 +65,8 @@ table {
   box-shadow: 0 2px 6px var(--color-shadow);
 }
 
+
+
 th {
   background: var(--color-main);
   color: var(--color-background3);
