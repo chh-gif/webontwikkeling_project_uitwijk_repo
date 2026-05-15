@@ -33,7 +33,7 @@ export async function fetchfunction() {
       "https://raw.githubusercontent.com/chh-gif/Webontwikkeling-Assets_JSON_Rep/main/json/waterval.json",
     );
     const data = (await resp1.json()) as Waterfall[];
-    await waterfalls.deleteMany({});
+
     await waterfalls.insertMany(data); //geen dubbel data
   }
 
@@ -42,7 +42,7 @@ export async function fetchfunction() {
       "https://raw.githubusercontent.com/chh-gif/Webontwikkeling-Assets_JSON_Rep/main/json/waterval_object.json",
     );
     const data = (await resp1.json()) as IntClimate[];
-    await climate.deleteMany({}); //geen dubbel data
+   
     await climate.insertMany(data);
   }
 }
