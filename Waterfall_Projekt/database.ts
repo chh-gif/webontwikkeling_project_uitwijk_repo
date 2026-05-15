@@ -18,7 +18,7 @@ export const climate: Collection<IntClimate> = client
 export async function connect() {
   try {
     await client.connect();
-    await openDB();
+    await getAllWaterfalls();
     process.on("SIGINT", exit);
   } catch (error) {
     console.error(error);
@@ -26,8 +26,8 @@ export async function connect() {
 } // DB verbinden
 export async function fetchfunction() {
   //nur fetchen wenn
-  const waterfallsArray: Waterfall[] = await openDB();
-  const climateArray: IntClimate[] = await openDBclimate();
+  const waterfallsArray: Waterfall[] = await getAllWaterfalls();
+  const climateArray: IntClimate[] = await getAllClimates();
   if (waterfallsArray.length == 0) {
     const resp1 = await fetch(
       "https://raw.githubusercontent.com/chh-gif/Webontwikkeling-Assets_JSON_Rep/main/json/waterval.json",
@@ -46,15 +46,21 @@ export async function fetchfunction() {
     await climate.insertMany(data);
   }
 }
-export async function openDB() {
-  //DB öffnen
-  return await waterfalls.find({}).toArray();
+export async function editingOneWaterfalls(id: string, data: Waterfall){
+  await waterfalls.updateOne(
+        { waterfallId: id },
+        {
+          $set: {
+            description: data.description,
+            yearRoundWaterFlow:
+              data.yearRoundWaterFlow === true,
+            imageURL: data.imageURL,
+            imageSource: data.imageSource,
+          },
+        },
+      );
 }
 
-export async function openDBclimate() {
-  //DB öffnen
-  return await climate.find({}).toArray();
-}
 export async function exit() {
   try {
     await client.close();

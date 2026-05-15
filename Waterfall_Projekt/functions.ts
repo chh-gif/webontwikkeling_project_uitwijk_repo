@@ -1,5 +1,5 @@
 import { IntClimate, Waterfall } from "./interface";
-import * as readline from "readline-sync";
+
 
 export async function data(waterfallObject: Waterfall[]) {
   try {

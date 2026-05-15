@@ -2,7 +2,8 @@ import { Router } from "express";
 import {
   getAllWaterfalls,
   getWaterfallById,
-  waterfalls
+  waterfalls,
+  editingOneWaterfalls
 } from "../../database";
 import { IntClimate, Waterfall } from "../../interface";
 
@@ -97,26 +98,14 @@ let db: any;
 
         router.get("/editor/:id", async (req, res) => {
           const id = req.params.id;
-          const waterfall = await getAllWaterfalls();
           const element = await getWaterfallById(id);
-          res.render("editor", { element, waterfallObject: waterfall });
+          res.render("editor", { element});
         });
     
     router.post("/editor/:id", async (req, res) => {
       const id = req.params.id;
 
-      await waterfalls.updateOne(
-        { waterfallId: id },
-        {
-          $set: {
-            description: req.body.description,
-            yearRoundWaterFlow:
-              req.body.yearRoundWaterFlow === "true" ? true : false,
-            imageURL: req.body.imageURL,
-            imageSource: req.body.imageSource,
-          },
-        },
-      );
+      await editingOneWaterfalls(id, req.body);
 
       res.redirect("/detailpage/" + id);
     });
