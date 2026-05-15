@@ -1,7 +1,8 @@
 import { Collection, MongoClient } from "mongodb";
 import dotenv from "dotenv";
+import {User} from "./types";
 import { IntClimate, Waterfall } from "./interface";
-
+import bcrypt from "bcrypt";
 dotenv.config();
 
 export const client = new MongoClient(
@@ -15,10 +16,15 @@ export const climate: Collection<IntClimate> = client
   .db("waterfallDB")
   .collection<IntClimate>("climate");
 
+export const userCollection = client.db("waterfallDB").collection<User>("users");
+
+const saltRounds : number = 10;
+
 export async function connect() {
   try {
     await client.connect();
     await getAllWaterfalls();
+    await createInitialUser();
     process.on("SIGINT", exit);
   } catch (error) {
     console.error(error);
@@ -81,5 +87,37 @@ export async function getAllClimates() {
   return await climate.find({}).toArray();
 }
 export async function getClimatebyId(id: string) {
-  return await waterfalls.findOne({ climateId: id});
+  return await waterfalls.findOne({"climate.climateId": id});
+}
+
+async function createInitialUser() {
+    if (await userCollection.countDocuments() > 0) {
+        return;
+    }
+    let email : string | undefined = process.env.ADMIN_EMAIL;
+    let password : string | undefined = process.env.ADMIN_PASSWORD;
+    if (email === undefined || password === undefined) {
+        throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD must be set in environment");
+    }
+    await userCollection.insertOne({
+        email: email,
+        password: await bcrypt.hash(password, saltRounds),
+        role: "ADMIN"
+    });
+}
+
+export async function login(email: string, password: string) {
+    if (email === "" || password === "") {
+        throw new Error("Email and password required");
+    }
+    let user : User | null = await userCollection.findOne<User>({email: email});
+    if (user) {
+        if (await bcrypt.compare(password, user.password!)) {
+            return user;
+        } else {
+            throw new Error("Password incorrect");
+        }
+    } else {
+        throw new Error("User not found");
+    }
 }

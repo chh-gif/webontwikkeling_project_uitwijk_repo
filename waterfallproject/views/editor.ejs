@@ -3,11 +3,11 @@
 <%- include("partials/nav") %>
 
 <div class="body">
-   <a href="/detailpage/<%=element.waterfallId%>">⟵  back to waterfall <%=element.name %></a>
+   <a href="/waterfalls/detailpage/<%=element.waterfallId%>">⟵  back to waterfall <%=element.name %></a>
 
 <h1> Edit waterfall <%=element.name%></h1>
 
-<form action="/editor/<%=element.waterfallId%>" method="POST" class="editor">
+<form action="/waterfalls/editor/<%=element.waterfallId%>" method="POST" class="editor">
 <div class="editor-form">
    <label for="description">Description:</label>
    <input type="text" id="description" name="description" value="<%=element.description%>" required>

@@ -17,8 +17,8 @@
         <tbody>
             <% climateObject.forEach(element => { %>
                     <tr>  
-                    <td><a href="climatepage/<%= element.climateId %>"><img src="<%= element.image%>" width="120"> </a> </td>
-                     <td><a href="climatepage/<%= element.climateId %>"><%= element.name %> </a> </td>
+                    <td><a href="/climates/climatepage/<%= element.climateId %>"><img src="<%= element.image%>" width="120"> </a> </td>
+                     <td><a href="/climates/climatepage/<%= element.climateId %>"><%= element.name %> </a> </td>
                      <td> <%= element.annualAvgTemperatureCelsius %> </td>
                      <td> <%= element.environment %> </td>
                  <td> <% if (element.freezePossible) { %>

@@ -3,7 +3,7 @@
 
 <div class="body">
 
-    <form  action="/overview" method="POST">
+    <form  action="/waterfalls/overview" method="POST">
         <label for="search">Search</label>
         <input type="text" name="search"> 
 
@@ -37,8 +37,8 @@
         <tbody>
             <% waterfallObject.forEach(element => { %>
                     <tr>  
-                    <td><a href="detailpage/<%= element.waterfallId %>"><img src="<%= element.imageURL%>" width="120"> </a> </td>
-                     <td><a href="detailpage/<%= element.waterfallId %>"><%= element.name %> </a> </td>
+                    <td><a href="/waterfalls/detailpage/<%= element.waterfallId %>"><img src="<%= element.imageURL%>" width="120"> </a> </td>
+                     <td><a href="/waterfalls/detailpage/<%= element.waterfallId %>"><%= element.name %> </a> </td>
                      <td> <%= element.country %> </td>
                      <td> <%= element.heightInM %> </td>
                     <% if(element.yearRoundWaterFlow == true){%>

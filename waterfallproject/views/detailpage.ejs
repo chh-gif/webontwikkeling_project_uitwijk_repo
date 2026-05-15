@@ -3,7 +3,7 @@
 <%- include("partials/nav") %>
 
 <div class="body">
-   <a href="/overview" style="margin-bottom: 20px;">⟵  back to the overview</a>
+   <a href="/waterfalls/overview" style="margin-bottom: 20px;">⟵  back to the overview</a>
 
     <table >
         <tr>
@@ -84,13 +84,13 @@
 Name 
                 </td>
                 <td>
-<a href="/detailpage/<%= ele.waterfallId %>"><%= ele.waterfallId %> - <%= ele.name %></a>
+<a href="/waterfalls/detailpage/<%= ele.waterfallId %>"><%= ele.waterfallId %> - <%= ele.name %></a>
                 </td>
                 </tr> 
              </table>
   <%}}) %>
 
-  <a href="/editor/<%= element.waterfallId %>"> forward to the editor ⟶</a>
+  <a href="/waterfalls/editor/<%= element.waterfallId %>"> forward to the editor ⟶</a>
 
     </div>
     <%- include("partials/footer") %>

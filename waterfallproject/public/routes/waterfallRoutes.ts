@@ -2,7 +2,6 @@ import { Router } from "express";
 import {
   getAllWaterfalls,
   getWaterfallById,
-  waterfalls,
   editingOneWaterfalls
 } from "../../database";
 import { IntClimate, Waterfall } from "../../interface";
@@ -13,10 +12,7 @@ let waterfallObject: Waterfall[] = [];
 let climateObject: IntClimate[] = [];
 let db: any;
 
-  router.get("/", async (req, res) => {
-      const waterfall = await getAllWaterfalls();
-      res.render("index", { waterfallObject: waterfall });
-    });
+ 
 
     router.get("/overview", async (req, res) => {
       const waterfall = await getAllWaterfalls();
