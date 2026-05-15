@@ -1,7 +1,4 @@
 import { Router } from "express";
-import {
-  getAllWaterfalls,
-} from "../../database";
 import { IntClimate, Waterfall } from "../../interface";
 const router = Router();
 

@@ -103,7 +103,7 @@ let db: any;
 
       await editingOneWaterfalls(id, req.body);
 
-      res.redirect("/detailpage/" + id);
+      res.redirect("/waterfalls/detailpage/" + id);
     });
 
      export default router;

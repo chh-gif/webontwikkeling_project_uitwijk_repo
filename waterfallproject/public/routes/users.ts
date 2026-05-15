@@ -16,7 +16,7 @@ router.post("/login", async(req, res) => {
         req.session.user = user;
         res.redirect("/")
     } catch (e : any) {
-        res.redirect("/login");
+        res.redirect("/users/login");
     }
 });
 
